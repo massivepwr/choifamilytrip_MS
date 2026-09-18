@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f7f9">
+<title>베트남 여행 총무</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--text:#17191e;--muted:#747a84;--line:#e7e9ed;--dark:#22262d;--cash:#f7f3ea;--cardbg:#eef4fa;--danger:#bd4040}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}
+.wrap{max-width:760px;margin:auto;padding:18px 14px 70px}h1{font-size:25px;margin:4px 0}.sub,.mini{font-size:12px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 3px 14px rgba(0,0,0,.03)}
+.section-title{font-size:16px;font-weight:900}.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f7f8fa;border-radius:14px;padding:13px 10px}.stat span{display:block;font-size:11px;color:var(--muted)}.stat b{display:block;font-size:16px;margin-top:5px}.stat small{font-size:10px;color:var(--muted)}
+.wallets{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.wallet{border-radius:14px;padding:13px}.wallet.cash{background:var(--cash)}.wallet.check{background:var(--cardbg)}.wallet span{font-size:11px;color:var(--muted)}.wallet b{display:block;font-size:17px;margin:5px 0}.wallet small{font-size:11px;color:var(--muted)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}label{font-size:12px;color:var(--muted);font-weight:750;display:block;margin-bottom:7px}
+input,select{width:100%;border:1px solid #dfe2e7;border-radius:12px;padding:13px 12px;font-size:16px;background:#fff;outline:none}
+button{border:0;border-radius:12px;padding:12px 13px;font-weight:850;cursor:pointer}.primary{width:100%;background:var(--dark);color:#fff;margin-top:10px}.del{background:#f8eeee;color:var(--danger);padding:7px 9px}
+.entry{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}.entry:last-child{border:0}.name{font-size:13px;font-weight:800;display:flex;align-items:center;gap:5px;min-width:0}.meta{font-size:10px;color:var(--muted);margin-top:2px}.money{text-align:right;font-size:13px;font-weight:850;white-space:nowrap}
+.badge{display:inline-block;font-size:9px;padding:2px 5px;border-radius:99px;margin-right:5px}.badge.cash{background:#eee4cf}.badge.check{background:#dceaf6}
+.empty{text-align:center;color:#999;font-size:13px;padding:22px 0}.progress{height:8px;background:#eceef1;border-radius:99px;overflow:hidden;margin-top:13px}.bar{height:100%;background:#343941;border-radius:99px}
+.korea{font-size:13px}.krow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line)}.krow:last-child{border:0}.ktotal{font-weight:900;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}
+.grand{background:#22262d;color:#fff}.grand .mini{color:#bfc3c9}.grand b{font-size:22px}
+
+.compact-card{padding:14px}
+.inline-entry{display:grid;grid-template-columns:auto minmax(0,.9fr) minmax(0,1.2fr) 42px;gap:7px;align-items:center;margin-top:11px}
+.pay-pills{display:flex;gap:7px;white-space:nowrap;align-items:center}
+.pay-pills input{position:absolute;opacity:0;pointer-events:none}
+.pay-pills label{margin:0;display:flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:#69707a;cursor:pointer;width:auto;height:auto;border:0;background:none}
+.pay-pills label:before{content:"";width:9px;height:9px;border:1px solid #aeb4bc;border-radius:50%;background:#fff;box-sizing:border-box}
+.pay-pills input:checked+label{color:#22262d;background:none;box-shadow:none;border:0}
+.pay-pills input:checked+label:before{border:3px solid #30353d}
+.inline-entry input{padding:11px 9px;font-size:14px;min-width:0}
+.go{width:42px;height:42px;border-radius:12px;background:var(--dark);color:#fff;padding:0;font-size:20px;display:grid;place-items:center}
+.hint-row{display:flex;gap:13px;font-size:10px;color:var(--muted);margin-top:7px;padding-left:2px}
+.actions{display:flex;gap:4px}.edit{background:#eef1f4;color:#4d5560;padding:7px 8px;font-size:11px}
+.entry.editing{background:#fafbfc;margin:0 -6px;padding-left:6px;padding-right:6px;border-radius:10px}
+.clickedit{cursor:pointer;border-radius:6px;padding:2px 3px}.clickedit:hover{background:#f0f2f4}
+.inline-edit{border:1px solid #bfc5cc!important;border-radius:7px!important;padding:5px 6px!important;font-size:12px!important;background:#fff!important}
+.saveedit{background:#22262d;color:#fff;padding:7px 9px;font-size:11px}
+.history-title{font-size:12px;font-weight:900;color:#626974;margin-top:13px;padding-top:10px;border-top:1px solid var(--line)}
+.history-summary{font-size:10px;color:var(--muted);margin-top:4px;padding-bottom:3px}
+.hist-time{font-size:10px;color:#68707a;white-space:nowrap;cursor:pointer}
+.hist-desc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;min-width:0}
+@media(max-width:520px){.summary{grid-template-columns:1fr}.stat{display:flex;align-items:center;justify-content:space-between}.stat b{margin:0}.row{grid-template-columns:1fr 1fr}.wallets{grid-template-columns:1fr 1fr}.wrap{max-width:430px;padding:12px 10px 55px}h1{font-size:21px}.card{border-radius:15px;margin-bottom:9px}.inline-entry{grid-template-columns:auto minmax(0,.85fr) minmax(0,1.15fr) 40px;gap:5px}.go{width:40px;height:40px}.entry{gap:5px}}
+</style>
+</head>
+<body><div class="wrap">
+<h1>🇻🇳 베트남 여행 총무</h1><div class="sub" style="margin-bottom:18px">현찰 · 체크카드별 환전/지출/잔액 관리</div>
+
+<div class="card">
+ <div class="summary">
+  <div class="stat"><span>총 환전액</span><b id="totalEx">0 ₫</b><small id="totalExKr">0원</small></div>
+  <div class="stat"><span>현지 사용금액</span><b id="spent">0 ₫</b><small id="spentKr">0원</small></div>
+  <div class="stat"><span>현지 남은금액</span><b id="remain">0 ₫</b><small id="remainKr">0원</small></div>
+ </div>
+ <div class="wallets">
+  <div class="wallet cash"><span>💵 현찰 잔액</span><b id="cashRemain">0 ₫</b><small id="cashDetail">환전 0 · 사용 0</small></div>
+  <div class="wallet check"><span>💳 체크카드 잔액</span><b id="checkRemain">0 ₫</b><small id="checkDetail">충전 0 · 사용 0</small></div>
+ </div>
+ <div class="progress"><div class="bar" id="bar" style="width:0"></div></div>
+ <div class="between" style="margin-top:7px"><span class="mini">현지 예산 사용률</span><b class="mini" id="percent">0%</b></div>
+</div>
+
+<div class="card compact-card">
+ <div class="between"><div class="section-title">현지 지출 입력</div><div class="mini">현찰 · 체크카드</div></div>
+ <div class="inline-entry">
+  <div class="pay-pills" title="결제수단">
+   <input type="radio" name="payTypeRadio" id="payCash" value="cash" checked><label for="payCash">현금</label>
+   <input type="radio" name="payTypeRadio" id="payCheck" value="check"><label for="payCheck">카드</label>
+  </div>
+  <input id="amount" type="text" inputmode="numeric" placeholder="금액">
+  <input id="desc" placeholder="사용처 / 적요">
+  <button class="go" onclick="addExpense()" aria-label="지출 추가">＋</button>
+ </div><div class="history-title">지출 히스토리</div><div class="history-summary" id="expenseSummary">현금 0 ₫ · 카드 0 ₫ · 합계 0 ₫</div><div id="expenseList"></div>
+</div>
+<div class="card compact-card">
+ <div class="between"><div class="section-title">환전 / 충전 추가</div><div class="mini">보유금액 추가</div></div>
+ <div class="inline-entry">
+  <div class="pay-pills" title="구분">
+   <input type="radio" name="exTypeRadio" id="exCash" value="cash" checked><label for="exCash">현금</label>
+   <input type="radio" name="exTypeRadio" id="exCheck" value="check"><label for="exCheck">카드</label>
+  </div>
+  <input id="exAmount" type="text" inputmode="numeric" placeholder="금액">
+  <input id="exMemo" placeholder="메모">
+  <button class="go" onclick="addExchange()" aria-label="환전 추가">＋</button>
+ </div><div class="history-title">환전 / 충전 히스토리</div><div id="exchangeList"></div>
+</div>
+<span id="count" style="display:none"></span>
+<div class="card korea">
+ <div class="between"><div class="section-title">🇰🇷 한국에서 사용한 비용</div><div class="mini">참고용 고정비</div></div>
+ <div style="margin-top:8px">
+  <div class="krow"><span>비행기 구매</span><b>2,883,092원</b></div>
+  <div class="krow"><span>숙소</span><b>1,724,190원</b></div>
+  <div class="krow"><span>바나힐 - 클룩</span><b>594,400원</b></div>
+  <div class="between ktotal"><span>한국 선결제 합계</span><b id="koreaTotal"></b></div>
+ </div>
+</div>
+
+<div class="card grand">
+ <div class="between"><div><div class="mini">한국 선결제 + 현지 실제 사용</div><div style="font-weight:900;margin-top:3px">현재까지 여행 총 경비</div></div><b id="grandTotal">0원</b></div>
+</div>
+
+<div class="card">
+ <div class="between"><div class="section-title">환율 설정</div><div class="mini">맨 아래에서 필요할 때 수정</div></div>
+ <div class="row">
+  <div><label>1 VND = KRW</label><input id="rate" type="number" step="0.0001" value="0.0552"></div>
+  <div><label>환산 예시</label><input id="rateView" disabled></div>
+ </div>
+</div>
+<div class="card compact-card"><button class="primary" style="margin-top:0" onclick="exportExcel()">📊 엑셀로 내보내기</button><div class="mini" style="text-align:center;margin-top:7px">현지 지출 · 환전/충전 · 한국 선결제 내역</div></div>
+</div>
+
+<script>
+const KEY='vietnam_trip_treasurer_v2', KOREA=2883092+1724190+594400;
+let data={rate:.0552,exchanges:[],expenses:[]};
+const $=x=>document.getElementById(x), fmt=n=>Math.round(Number(n)||0).toLocaleString('ko-KR');
+const parseVnd=v=>Number(String(v).replace(/,/g,''))||0;
+function shortTime(s){
+ if(!s)return '';
+ const m=String(s).match(/(?:\d{4}-)?(\d{1,2})[-/.](\d{1,2})\s+(\d{1,2}):(\d{2})/);
+ return m?`${Number(m[1])}/${Number(m[2])} ${String(m[3]).padStart(2,'0')}:${m[4]}`:s;
+}
+function vnNow(){const d=new Date(Date.now()+7*3600000);return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')} ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')}`}
+const vnd=n=>fmt(n)+' ₫', krw=n=>fmt((Number(n)||0)*data.rate)+'원';
+const typeName=t=>t==='cash'?'현찰':'체크카드';
+const badge=t=>`<span class="badge ${t}">${t==='cash'?'💵 현찰':'💳 체크카드'}</span>`;
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function load(){
+ try{
+  let x=JSON.parse(localStorage.getItem(KEY));
+  if(x)data={...data,...x};
+  else{
+   let old=JSON.parse(localStorage.getItem('vietnam_trip_treasurer_v1'));
+   if(old){data.rate=old.rate||.0552;data.exchanges=(old.exchanges||[]).map(x=>({...x,type:x.type||'cash'}));data.expenses=(old.expenses||[]).map(x=>({...x,type:x.type||'cash'}))}
+  }
+ }catch(e){}
+ $('rate').value=data.rate;render()
+}
+function addExchange(){
+ let a=parseVnd($('exAmount').value),m=$('exMemo').value.trim()||( document.querySelector('input[name="exTypeRadio"]:checked').value==='cash'?'환전':'체크카드 충전');
+ if(!a)return alert('금액을 입력해주세요.');
+ data.exchanges.push({id:Date.now(),type:document.querySelector('input[name="exTypeRadio"]:checked').value,memo:m,amount:a});
+ $('exAmount').value='';$('exMemo').value='';save();render()
+}
+function addExpense(){
+ let a=parseVnd($('amount').value),d=$('desc').value.trim();
+ if(!d)return alert('적요를 입력해주세요.');if(!a)return alert('금액을 입력해주세요.');
+ data.expenses.push({id:Date.now(),type:document.querySelector('input[name="payTypeRadio"]:checked').value,desc:d,amount:a,time:vnNow()});
+ $('amount').value='';$('desc').value='';save();render()
+}
+let editing=null;
+function editExField(id,field){editing={kind:'ex',id,field};renderEdit()}
+function editSpField(id,field){editing={kind:'sp',id,field};renderEdit()}
+function renderEdit(){
+ if(!editing)return;
+ const isEx=editing.kind==='ex', x=(isEx?data.exchanges:data.expenses).find(v=>v.id===editing.id);
+ const row=$(isEx?'exrow-'+x.id:'sprow-'+x.id); if(!row)return; row.classList.add('editing');
+ let left='', mid='';
+ const text=isEx?x.memo:x.desc;
+ if(editing.field==='time'){left=`<div class="meta"><input id="editVal" class="inline-edit" value="${esc(x.time||vnNow())}"></div><div class="name">${badge(x.type)}${esc(text)}</div>`;mid=`<div class="money">${vnd(x.amount)}<div class="meta">${krw(x.amount)}</div></div>`;}else if(editing.field==='type'){
+   left=`<div class="name"><select id="editVal" class="inline-edit"><option value="cash" ${x.type==='cash'?'selected':''}>현금</option><option value="check" ${x.type==='check'?'selected':''}>카드</option></select> ${esc(text)}</div>`;
+   mid=`<div class="money">${vnd(x.amount)}<div class="meta">${krw(x.amount)}</div></div>`;
+ }else if(editing.field===(isEx?'memo':'desc')){
+   left=`<div class="name">${badge(x.type)}<input id="editVal" class="inline-edit" value="${esc(text)}"></div>${isEx?'':`<div class="meta">${x.time||''}</div>`}`;
+   mid=`<div class="money">${vnd(x.amount)}<div class="meta">${krw(x.amount)}</div></div>`;
+ }else{
+   left=`<div class="name">${badge(x.type)}${esc(text)}</div>${isEx?'':`<div class="meta">${x.time||''}</div>`}`;
+   mid=`<div class="money"><input id="editVal" class="inline-edit" inputmode="numeric" value="${fmt(x.amount)}"><div class="meta">${krw(x.amount)}</div></div>`;
+ }
+ row.innerHTML=`<div>${left}</div>${mid}<div class="actions"><button class="saveedit" onclick="saveInlineEdit()">수정</button><button class="del" onclick="cancelInlineEdit()">취소</button></div>`;
+ const el=$('editVal'); if(el){el.focus();if(editing.field==='amount')el.addEventListener('input',e=>comma(e.target));}
+}
+function saveInlineEdit(){
+ if(!editing)return;
+ const isEx=editing.kind==='ex', arr=isEx?data.exchanges:data.expenses, x=arr.find(v=>v.id===editing.id), val=$('editVal').value;
+ if(editing.field==='type')x.type=val;
+ else if(editing.field==='amount'){const a=parseVnd(val);if(!a)return alert('금액을 확인해주세요.');x.amount=a;}
+ else if(editing.field==='memo')x.memo=val.trim()||x.memo;
+ else if(editing.field==='desc')x.desc=val.trim()||x.desc;else if(editing.field==='time')x.time=val.trim()||x.time;
+ editing=null;save();render()
+}
+function cancelInlineEdit(){editing=null;render()}
+function delEx(id){data.exchanges=data.exchanges.filter(x=>x.id!==id);save();render()}
+function delExpense(id){data.expenses=data.expenses.filter(x=>x.id!==id);save();render()}
+function render(){
+ const sum=(arr,t)=>arr.filter(x=>!t||x.type===t).reduce((s,x)=>s+Number(x.amount),0);
+ const ex=sum(data.exchanges),sp=sum(data.expenses),rem=ex-sp;
+ const ce=sum(data.exchanges,'cash'),cs=sum(data.expenses,'cash'),che=sum(data.exchanges,'check'),chs=sum(data.expenses,'check');
+ const p=ex?sp/ex*100:0;
+ $('totalEx').textContent=vnd(ex);$('totalExKr').textContent=krw(ex);$('spent').textContent=vnd(sp);$('spentKr').textContent=krw(sp);$('remain').textContent=vnd(rem);$('remainKr').textContent=krw(rem);
+ if($('expenseSummary'))$('expenseSummary').textContent=`현금 ${vnd(cs)} · 카드 ${vnd(chs)} · 합계 ${vnd(sp)}`;
+ $('cashRemain').textContent=vnd(ce-cs);$('cashDetail').textContent=`환전 ${vnd(ce)} · 사용 ${vnd(cs)}`;
+ $('checkRemain').textContent=vnd(che-chs);$('checkDetail').textContent=`충전 ${vnd(che)} · 사용 ${vnd(chs)}`;
+ $('percent').textContent=p.toFixed(1)+'%';$('bar').style.width=Math.min(Math.max(p,0),100)+'%';
+ if($('count'))$('count').textContent=data.expenses.length+'건';$('rateView').value='100,000동 ≈ '+fmt(100000*data.rate)+'원';
+ $('koreaTotal').textContent=fmt(KOREA)+'원';$('grandTotal').textContent=fmt(KOREA+sp*data.rate)+'원';
+ $('exchangeList').innerHTML=data.exchanges.length?[...data.exchanges].reverse().map(x=>`<div class="entry" id="exrow-${x.id}"><div><div class="name"><span class="clickedit" onclick="editExField(${x.id},'type')">${badge(x.type)}</span><span class="clickedit" onclick="editExField(${x.id},'memo')">${esc(x.memo)}</span></div></div><div class="money"><span class="clickedit" onclick="editExField(${x.id},'amount')">${vnd(x.amount)}</span><div class="meta">${krw(x.amount)}</div></div><div class="actions"><button class="del" onclick="delEx(${x.id})">삭제</button></div></div>`).join(''):'<div class="empty">아직 환전/충전 내역이 없습니다.</div>';
+ $('expenseList').innerHTML=data.expenses.length?[...data.expenses].reverse().map(x=>`<div class="entry" id="sprow-${x.id}"><div class="name"><span class="hist-time" onclick="editSpField(${x.id},'time')">${shortTime(x.time)}</span><span class="clickedit" onclick="editSpField(${x.id},'type')">${badge(x.type)}</span><span class="hist-desc" onclick="editSpField(${x.id},'desc')">${esc(x.desc)}</span></div><div class="money"><span class="clickedit" onclick="editSpField(${x.id},'amount')">${vnd(x.amount)}</span><div class="meta">${krw(x.amount)}</div></div><div class="actions"><button class="del" onclick="delExpense(${x.id})">삭제</button></div></div>`).join(''):'<div class="empty">아직 현지 사용 내역이 없습니다.</div>';
+}
+function comma(el){let r=el.value.replace(/[^\d]/g,'');el.value=r?Number(r).toLocaleString('en-US'):''}
+['exAmount','amount'].forEach(id=>$(id).addEventListener('input',e=>comma(e.target)));
+$('rate').addEventListener('input',e=>{data.rate=Number(e.target.value)||0;save();render()});
+$('exAmount').addEventListener('keydown',e=>{if(e.key==='Enter')addExchange()});
+$('amount').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
+function exportExcel(){const rows=[['구분','베트남 현지시간','수단','적요/메모','금액(VND)','금액(KRW)']];data.expenses.forEach(x=>rows.push(['현지 지출',x.time||'',typeName(x.type),x.desc,x.amount,Math.round(x.amount*data.rate)]));data.exchanges.forEach(x=>rows.push(['환전/충전','',typeName(x.type),x.memo,x.amount,Math.round(x.amount*data.rate)]));rows.push([],['한국 선결제','','','비행기 구매','',2883092],['한국 선결제','','','숙소','',1724190],['한국 선결제','','','바나힐 - 클룩','',594400],['한국 선결제 합계','','','','',KOREA]);const spent=data.expenses.reduce((s,x)=>s+Number(x.amount),0);rows.push(['현재까지 여행 총 경비','','','','',Math.round(KOREA+spent*data.rate)]);const table=rows.map(r=>'<tr>'+r.map(c=>'<td>'+esc(c??'')+'</td>').join('')+'</tr>').join('');const content='<html><head><meta charset="UTF-8"></head><body><table>'+table+'</table></body></html>';const blob=new Blob(['\ufeff'+content],{type:'application/vnd.ms-excel;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='베트남_여행_총무.xls';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+load();
+</script></body></html>
