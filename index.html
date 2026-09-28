@@ -477,8 +477,48 @@
  .tab-scroll .tab-btn{flex-basis:calc((100% - 21px)/8) !important;width:calc((100% - 21px)/8) !important;font-size:13px !important}
 }
 </style>
+
+<style id="page-lock-style">
+body.page-locked .app-shell{display:none!important}
+#pageLock{position:fixed;inset:0;z-index:999999;background:#f5f7fb;display:flex;align-items:center;justify-content:center;padding:24px;font-family:Arial,"Noto Sans KR",sans-serif}
+#pageLock .lock-card{width:min(360px,100%);background:#fff;border-radius:20px;padding:28px 22px;box-shadow:0 12px 40px rgba(0,0,0,.12);text-align:center}
+#pageLock .lock-title{font-size:21px;font-weight:900;margin:0 0 7px;color:#202124}
+#pageLock .lock-sub{font-size:13px;color:#7b8190;margin:0 0 18px}
+#pageLock input{width:100%;padding:13px 14px;border:1px solid #d8dce3;border-radius:11px;font-size:18px;text-align:center;letter-spacing:4px;outline:none}
+#pageLock button{width:100%;margin-top:10px;padding:13px;border:0;border-radius:11px;background:#315efb;color:#fff;font-size:15px;font-weight:900;cursor:pointer}
+#pageLock .lock-error{min-height:18px;margin-top:9px;font-size:12px;color:#d33}
+</style>
 </head>
-<body>
+<body class="page-locked">
+<div id="pageLock">
+  <div class="lock-card">
+    <div class="lock-title">🇻🇳 CHOI's Family Da Nang Travel</div>
+    <div class="lock-sub">비밀번호를 입력해 주세요.</div>
+    <input id="pageLockInput" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••" aria-label="비밀번호">
+    <button type="button" id="pageLockBtn">열기</button>
+    <div class="lock-error" id="pageLockError"></div>
+  </div>
+</div>
+<script>
+(function(){
+  document.body.classList.add('page-locked');
+  function unlock(){
+    var i=document.getElementById('pageLockInput');
+    var e=document.getElementById('pageLockError');
+    if(i.value==='0968'){
+      document.body.classList.remove('page-locked');
+      document.getElementById('pageLock').remove();
+    }else{
+      e.textContent='비밀번호가 맞지 않습니다.';
+      i.value=''; i.focus();
+    }
+  }
+  document.getElementById('pageLockBtn').addEventListener('click',unlock);
+  document.getElementById('pageLockInput').addEventListener('keydown',function(ev){if(ev.key==='Enter')unlock();});
+  setTimeout(function(){document.getElementById('pageLockInput').focus();},0);
+})();
+</script>
+
 <div class="app-shell">
   <nav class="topbar">
     <div class="tab-scroll">
@@ -634,8 +674,8 @@ button{border:0;border-radius:12px;padding:12px 13px;font-weight:850;cursor:poin
 &lt;/div&gt;
 
 &lt;script&gt;
-const KEY=&#x27;vietnam_trip_treasurer_v2&#x27;, KOREA=2883092+1724190+594400+76521+17350+85570+50100;
-let data={rate:.0552,exchanges:[],expenses:[]};
+const KEY=&#x27;vietnam_trip_treasurer_archive_20260928_v2&#x27;, KOREA=2883092+1724190+594400+76521+17350+85570+50100;
+let data={rate:.0552,exchanges:[{&quot;id&quot;:1800000000025,&quot;type&quot;:&quot;cash&quot;,&quot;memo&quot;:&quot;1차환전&quot;,&quot;amount&quot;:6000000},{&quot;id&quot;:1800000000026,&quot;type&quot;:&quot;check&quot;,&quot;memo&quot;:&quot;2차 환전&quot;,&quot;amount&quot;:10000000},{&quot;id&quot;:1800000000027,&quot;type&quot;:&quot;check&quot;,&quot;memo&quot;:&quot;3차환전(5.29원)&quot;,&quot;amount&quot;:3175700},{&quot;id&quot;:1800000000028,&quot;type&quot;:&quot;check&quot;,&quot;memo&quot;:&quot;4차환전(5.2)&quot;,&quot;amount&quot;:2577500},{&quot;id&quot;:1800000000029,&quot;type&quot;:&quot;check&quot;,&quot;memo&quot;:&quot;5차환전(5.26)&quot;,&quot;amount&quot;:3802200}],expenses:[{&quot;id&quot;:1700000000001,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;JS전달&quot;,&quot;amount&quot;:3000000,&quot;time&quot;:&quot;2026-09-21 10:00&quot;},{&quot;id&quot;:1700000000002,&quot;type&quot;:&quot;cash&quot;,&quot;desc&quot;:&quot;비행기 간식&quot;,&quot;amount&quot;:300000,&quot;time&quot;:&quot;2026-09-21 09:42&quot;},{&quot;id&quot;:1700000000003,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;pick-up&quot;,&quot;amount&quot;:750000,&quot;time&quot;:&quot;2026-09-21 11:01&quot;},{&quot;id&quot;:1700000000004,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;그랩(슥소-한시장)&quot;,&quot;amount&quot;:190320,&quot;time&quot;:&quot;2026-09-21 11:33&quot;},{&quot;id&quot;:1700000000005,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;란지오&quot;,&quot;amount&quot;:2231250,&quot;time&quot;:&quot;2026-09-21 12:59&quot;},{&quot;id&quot;:1700000000006,&quot;type&quot;:&quot;cash&quot;,&quot;desc&quot;:&quot;망고카페&quot;,&quot;amount&quot;:210000,&quot;time&quot;:&quot;2026-09-21 13:53&quot;},{&quot;id&quot;:1700000000007,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;그랩(한시장-숙소)&quot;,&quot;amount&quot;:199680,&quot;time&quot;:&quot;2026-09-21 18:58&quot;},{&quot;id&quot;:1700000000008,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;그랩(숙소-다낭타워)&quot;,&quot;amount&quot;:184080,&quot;time&quot;:&quot;2026-09-21 18:59&quot;},{&quot;id&quot;:1700000000009,&quot;type&quot;:&quot;cash&quot;,&quot;desc&quot;:&quot;규현티셔츠(한시장)&quot;,&quot;amount&quot;:120000,&quot;time&quot;:&quot;2026-09-21 19:05&quot;},{&quot;id&quot;:1700000000010,&quot;type&quot;:&quot;cash&quot;,&quot;desc&quot;:&quot;숙소버틀러 tip&quot;,&quot;amount&quot;:200000,&quot;time&quot;:&quot;2026-09-21 15:00&quot;},{&quot;id&quot;:1700000000011,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;그랩(롯데마트)&quot;,&quot;amount&quot;:97760,&quot;time&quot;:&quot;2026-09-21 20:29&quot;},{&quot;id&quot;:1700000000012,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;lottemart&quot;,&quot;amount&quot;:1611200,&quot;time&quot;:&quot;2026-09-21 21:16&quot;},{&quot;id&quot;:1700000000013,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;다낭타워&quot;,&quot;amount&quot;:4547460,&quot;time&quot;:&quot;2026-09-21 21:17&quot;},{&quot;id&quot;:1700000000014,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;그랩(롯데마트-숙소)&quot;,&quot;amount&quot;:145600,&quot;time&quot;:&quot;2026-09-21 21:48&quot;},{&quot;id&quot;:1700000000015,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;그랩(숙소도착)&quot;,&quot;amount&quot;:85280,&quot;time&quot;:&quot;2026-09-22 21:48&quot;},{&quot;id&quot;:1700000000016,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;Ky Vat 점심&quot;,&quot;amount&quot;:2531760,&quot;time&quot;:&quot;2026-09-23 15:30&quot;},{&quot;id&quot;:1700000000017,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;모닝글로리(호이안)&quot;,&quot;amount&quot;:1190000,&quot;time&quot;:&quot;2026-09-23 19:30&quot;},{&quot;id&quot;:1700000000018,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;하이랜드(커피)&quot;,&quot;amount&quot;:139000,&quot;time&quot;:&quot;2026-09-23 20:00&quot;},{&quot;id&quot;:1700000000019,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;편의점(마스크)&quot;,&quot;amount&quot;:15000,&quot;time&quot;:&quot;2026-09-24 10:30&quot;},{&quot;id&quot;:1700000000020,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;스타벅스&quot;,&quot;amount&quot;:497500,&quot;time&quot;:&quot;2026-09-24 11:00&quot;},{&quot;id&quot;:1700000000021,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;체크아웃&quot;,&quot;amount&quot;:140000,&quot;time&quot;:&quot;2026-09-24 13:00&quot;},{&quot;id&quot;:1700000000022,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;JS전달&quot;,&quot;amount&quot;:1000000,&quot;time&quot;:&quot;2026-09-24 09:00&quot;},{&quot;id&quot;:1700000000023,&quot;type&quot;:&quot;check&quot;,&quot;desc&quot;:&quot;잔액조정(카드)&quot;,&quot;amount&quot;:175760,&quot;time&quot;:&quot;2026-09-28 19:42&quot;},{&quot;id&quot;:1700000000024,&quot;type&quot;:&quot;cash&quot;,&quot;desc&quot;:&quot;현금조정(소진)&quot;,&quot;amount&quot;:5170000,&quot;time&quot;:&quot;2026-09-28 19:43&quot;}]};
 const $=x=&gt;document.getElementById(x), fmt=n=&gt;Math.round(Number(n)||0).toLocaleString(&#x27;ko-KR&#x27;);
 const parseVnd=v=&gt;Number(String(v).replace(/,/g,&#x27;&#x27;))||0;
 function shortTime(s){
@@ -651,12 +691,8 @@ function esc(s){return String(s).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g,c=&gt;({
 function save(){localStorage.setItem(KEY,JSON.stringify(data))}
 function load(){
  try{
-  let x=JSON.parse(localStorage.getItem(KEY));
+  const x=JSON.parse(localStorage.getItem(KEY));
   if(x)data={...data,...x};
-  else{
-   let old=JSON.parse(localStorage.getItem(&#x27;vietnam_trip_treasurer_v1&#x27;));
-   if(old){data.rate=old.rate||.0552;data.exchanges=(old.exchanges||[]).map(x=&gt;({...x,type:x.type||&#x27;cash&#x27;}));data.expenses=(old.expenses||[]).map(x=&gt;({...x,type:x.type||&#x27;cash&#x27;}))}
-  }
  }catch(e){}
  $(&#x27;rate&#x27;).value=data.rate;render()
 }
@@ -913,9 +949,9 @@ load();
     <div class="timeline">
 <div class="schedule-item"><div class="time">08:00</div><div><div class="schedule-title">호텔 조식</div></div></div>
 <div class="schedule-item"><div class="time">09:00</div><div><div class="schedule-title">호텔 수영, 시내관광, 오행산 하이킹 등 휴식</div></div></div>
-<div class="schedule-item"><div class="time">12:00</div><div><div class="schedule-title"><button class="place-link" onclick="openPlace('p1f51f14f0c')">피자포피스</button></div><div class="schedule-desc excel-note">quan, 8 Hoàng Văn Thụ, Hải Châu, Đà Nẵng 550000</div></div></div>
+<div class="schedule-item"><div class="time">12:00</div><div><div class="schedule-title"><button class="place-link" onclick="openPlace('pea52cabb97')">ky Vat</button></div><div class="schedule-desc excel-note">56a Lê Hồng Phong, Hải Châu, Đà Nẵng</div></div></div>
 <div class="schedule-item"><div class="time">15:30</div><div><div class="schedule-title"><div class="voucher-title-row"><span>이동 - 호이안 올드타운 출발</span><button type="button" class="ticket-view-btn voucher-btn" onclick="openVoucher('hoianVoucherModal')">📄 바우처 열기</button></div></div><div class="schedule-desc excel-note">##이동수단 아직 미정 <br> - 그랩택시? 전용 셔틀?</div></div></div>
-<div class="schedule-item"><div class="time">16:20</div><div><div class="schedule-title"><button class="place-link" onclick="openPlace('pc93f08033e')">호이안 관광</button></div><div class="schedule-desc excel-note">09 Tô Hiến Thành, An Hải, Đà Nẵng</div></div></div>
+<div class="schedule-item"><div class="time">16:20</div><div><div class="schedule-title"><button class="place-link" onclick="openPlace('pc93f08033e')">호이안 관광(코코너보트)</button></div><div class="schedule-desc excel-note">09 Tô Hiến Thành, An Hải, Đà Nẵng</div></div></div>
 <div class="schedule-item"><div class="time">18:00</div><div><div class="schedule-title">모닝글로리 오리지날[베트남식]</div><div class="schedule-desc excel-note"><a href="https://maps.app.goo.gl/f2Hw97ct8837fRt89" target="_blank" rel="noopener noreferrer">https://maps.app.goo.gl/f2Hw97ct8837fRt89</a></div></div></div>
 <div class="schedule-item"><div class="time">19:30</div><div><div class="schedule-title"><button class="place-link" onclick="openPlace('pc93f08033e')">호이안 야경 등 관광</button></div><div class="schedule-desc excel-note">62 Nguyễn Thị Minh Khai, Hội An, Đà Nẵng,</div></div></div>
 <div class="schedule-item"><div class="time">20:30</div><div><div class="schedule-title">다낭 시내 또는 리조트로 복귀</div><div class="schedule-desc excel-note">##이동수단 아직 미정 <br> - 그랩택시? 전용 셔틀?</div></div></div>
@@ -932,9 +968,10 @@ load();
     <div class="timeline">
 <div class="schedule-item"><div class="time">08:00</div><div><div class="schedule-title">호텔 조식</div></div></div>
 <div class="schedule-item"><div class="time">09:00</div><div><div class="schedule-title">호텔 즐기기 또는 시내 관광 자율</div><div class="schedule-desc excel-note">선물 및 간식 구매</div></div></div>
-<div class="schedule-item"><div class="time">11:00</div><div><div class="schedule-title"><button class="place-link" onclick="openPlace('pea52cabb97')">ky Vat</button></div><div class="schedule-desc excel-note">56a Lê Hồng Phong, Hải Châu, Đà Nẵng</div></div></div>
+
 <div class="schedule-item"><div class="time">13:00</div><div><div class="schedule-title">late Check-out 및 <br>호텔 무료 셔틀버스 이동</div><div class="schedule-desc excel-note">무료 셔틀 버스 시간 및 장소 확인 하기</div></div></div>
 <div class="schedule-item"><div class="time">14:00</div><div><div class="schedule-title">다낭 공항 도착 </div></div></div>
+<div class="schedule-item"><div class="time">14:30</div><div><div class="schedule-title">버거킹(다낭공항)</div></div></div>
 <div class="schedule-item"><div class="time">16:05</div><div><div class="schedule-title">비행기 출발</div></div></div>
 <div class="schedule-item"><div class="time">22:35</div><div><div class="schedule-title">인천 공항 도착</div></div></div>
 </div>
